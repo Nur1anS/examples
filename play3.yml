@@ -1,0 +1,21 @@
+---
+- name: Loops
+  hosts : all
+
+
+  tasks:
+  - name: Say Hello
+    debug: msg="Hello {{ item }}"
+    with_items:
+        - "Vasya"
+        - "Petya"
+        - "Masha"
+        - "Olya"
+
+
+  - name: Loop Until Example
+    shell: echo -n N >> myfile.txt && cat myfile.txt
+    register: output
+    delay: 2
+    retries: 10
+    until: output.stdout.find("NNNN") == false
